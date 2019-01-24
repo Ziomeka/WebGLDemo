@@ -76,6 +76,12 @@
                     -0.5, -0.5,  0.0, 0.0, 1.0,
                     0.5, -0.5,   0.0, 1.0, 0.0
                 ];
+            // buffor declaration
+            const triangleVertexBufferObject = gl.createBuffer();
+            // bind buffer to the array buffer
+            gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
+            // write to the arry buffer triangleVerticesArray as Float32, and declare that we are going to use it to static draw
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
             });
     </script>
 </body>
