@@ -59,6 +59,9 @@
             // assign GLSL scripts text to proper shaders
             gl.shaderSource(vertexShader, vertexShaderText);
             gl.shaderSource(fragmentShader, fragmentShaderText);
+            // compile shaders
+            gl.compileShader(vertexShader);
+            gl.compileShader(fragmentShader);
             });
     </script>
 </body>
