@@ -116,20 +116,11 @@
             let projectionMatrix = new Float32Array(16);
 
             // fill matrixes with more proper data
-            modelMatrix =
-                [
-                    1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, 0, 1
-                ];
-            viewMatrix =
-                [
-                    1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, -2, 1
-                ];
+            glMatrix.mat4.identity(modelMatrix);
+
+            // seting camera with glMatrix (otput matrix, where is camera, at what it is looking, which way is up)
+            glMatrix.mat4.lookAt(viewMatrix, [0, 0, 2], [0, 0, 0], [0, 1, 0]);
+
             // diffine camera propertises
             const nearBound=0.1; // near bound distance
             const farBound=1000.0;// far bound distance
