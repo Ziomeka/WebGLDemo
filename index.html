@@ -80,9 +80,29 @@
             const triangleVertexBufferObject = gl.createBuffer();
             // bind buffer to the array buffer
             gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-            // write to the arry buffer triangleVerticesArray as Float32, and declare that we are going to use it to static draw
+            // write to the array buffer triangleVerticesArray as Float32, and declare that we are going to use it to static draw
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
-            });
+            // find attribute location in memory
+            const positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
+            const colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
+            // write to attributes location data from buffer
+            gl.vertexAttribPointer(
+                positionAttribLocation, // attribute location
+                2, // number of elements in attribute, 2 - X and Y
+                gl.FLOAT, // type of data
+                gl.FALSE, // declare if we want our data to be normalized
+                5 * Float32Array.BYTES_PER_ELEMENT, // size of whole data for one vertx
+                0 // offset - where to find beginng of the data for this attribute
+            );
+            gl.vertexAttribPointer(
+                colorAttribLocation, // attribute location
+                3, // number of elements in attribute, 3 - R, G and B
+                gl.FLOAT,
+                gl.FALSE,
+                5 * Float32Array.BYTES_PER_ELEMENT,
+                2 * Float32Array.BYTES_PER_ELEMENT
+            );
+        });
     </script>
 </body>
 </html>
