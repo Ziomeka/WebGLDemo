@@ -116,18 +116,8 @@
             let projectionMatrix = new Float32Array(16);
 
             // fill matrixes with more proper data
-
-            // let's rotate our model
-            let identity = new Float32Array(16);
-            let xRotationMatrix = new Float32Array(16);
-            let yRotationMatrix = new Float32Array(16);
-
-            glMatrix.mat4.identity(identity);
-
-            glMatrix.mat4.rotate(xRotationMatrix, identity, Math.PI/6, [1, 0, 0]); // x rotation matrix
-            glMatrix.mat4.rotate(yRotationMatrix, identity, Math.PI/6, [0, 1, 0]); // y rotation matrix
-
-            glMatrix.mat4.mul(modelMatrix, yRotationMatrix, xRotationMatrix); // model matrix as multiplication of the rotation matrixes
+            // stary with model matrix as identity
+            glMatrix.mat4.identity(modelMatrix);
 
             // seting camera with glMatrix (otput matrix, where is camera, at what it is looking, which way is up)
             glMatrix.mat4.lookAt(viewMatrix, [0, 0, 2], [0, 0, 0], [0, 1, 0]);
@@ -157,7 +147,20 @@
                 gl.drawArrays(gl.TRIANGLES, 0, 3);
             }
 
+            // let's rotate our model
+            let identity = new Float32Array(16);
+            let xRotationMatrix = new Float32Array(16);
+            let yRotationMatrix = new Float32Array(16);
+
+            glMatrix.mat4.identity(identity);
+            let alfa =0;
+
             const update = (time) => {
+                angle = time / 1000 / 6 * 2 * Math.PI;
+                glMatrix.mat4.rotate(xRotationMatrix, identity, angle, [1, 0, 0]);
+                glMatrix.mat4.rotate(yRotationMatrix, identity, angle/2, [0, 1, 0]);
+                glMatrix.mat4.mul(modelMatrix, yRotationMatrix, xRotationMatrix);
+                gl.uniformMatrix4fv(modelMatrixLocation, gl.FALSE, modelMatrix);
             }
 
             let startTime = null;
