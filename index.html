@@ -12,6 +12,18 @@
 <body>
     <canvas id="canvas" width="800" height="600"></canvas>
 
+    <script id="vertexShader" type="x-shader/x-vertex">
+        precision mediump float;
+        attribute vec2 vertPosition;
+        attribute vec3 vertColor;
+        varying vec3 fragColor;
+
+        void main()
+        {
+        fragColor = vertColor;
+        gl_Position = vec4(vertPosition, 0.0, 1.0);
+        }
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded',function(){
             // get canvas element
