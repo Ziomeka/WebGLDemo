@@ -62,12 +62,20 @@
             // compile shaders
             gl.compileShader(vertexShader);
             gl.compileShader(fragmentShader);
-            // Create program, attach shaders, link program and declar it is going to be used from now on
+            // create program, attach shaders, link program and declar it is going to be used from now on
             const program = gl.createProgram();
             gl.attachShader(program, vertexShader);
             gl.attachShader(program, fragmentShader);
             gl.linkProgram(program);
             gl.useProgram(program);
+
+            // define triangle vertexes position and colors
+            let triangleVertices =
+                [ // X, Y,       R, G, B
+                    0.0, 0.5,    1.0, 0.0, 0.0,
+                    -0.5, -0.5,  0.0, 0.0, 1.0,
+                    0.5, -0.5,   0.0, 1.0, 0.0
+                ];
             });
     </script>
 </body>
