@@ -73,22 +73,85 @@
             gl.linkProgram(program);
             gl.useProgram(program);
 
-            // define triangle vertexes position and colors
-            let triangleVertices =
-                [ // X, Y, Z          R, G, B
-                    0.0, 0.5, 0.0,    1.0, 0.0, 0.0,
-                    0.0, -0.5, 0.0,     0.0, 0.0, 1.0,
-                    0.5, 0, 0.0,      0.0, 1.0, 0.0,
-                    0.0, 0.5, 0.0,      0.0, 1.0, 1.0,
-                    0.0, -0.5, 0.0,   1.0, 1.0, 0.0,
-                    -0.5, 0, 0.0,     1.0, 0.0, 0.0
-                ];
-            // buffor declaration
-            const triangleVertexBufferObject = gl.createBuffer();
+            // define triangle vertexes position and colors with idexes
+            var qubeVertices = 
+            [ // X, Y, Z           R, G, B
+                // Top
+                -1.0, 1.0, -1.0,   0.5, 0.0, 0.0,
+                -1.0, 1.0, 1.0,    0.5, 0.0, 0.0,
+                1.0, 1.0, 1.0,     0.5, 0.0, 0.0,
+                1.0, 1.0, -1.0,    0.5, 0.0, 0.0,
+
+                // Left
+                -1.0, 1.0, 1.0,    1.0, 1.0, 0.0,
+                -1.0, -1.0, 1.0,   1.0, 1.0, 0.0,
+                -1.0, -1.0, -1.0,  1.0, 1.0, 0.0,
+                -1.0, 1.0, -1.0,   1.0, 1.0, 0.0,
+
+                // Right
+                1.0, 1.0, 1.0,    0.0, 1.0, 0.0,
+                1.0, -1.0, 1.0,   0.0, 1.0, 0.0,
+                1.0, -1.0, -1.0,  0.0, 1.0, 0.0,
+                1.0, 1.0, -1.0,   0.0, 1.0, 0.0,
+
+                // Front
+                1.0, 1.0, 1.0,    0.0, 0.5, 0.5,
+                1.0, -1.0, 1.0,   0.0, 0.5, 0.5,
+                -1.0, -1.0, 1.0,  0.0, 0.5, 0.5,
+                -1.0, 1.0, 1.0,   0.0, 0.5, 0.5,
+
+                // Back
+                1.0, 1.0, -1.0,   0.0, 0.0, 0.5,
+                1.0, -1.0, -1.0,  0.0, 0.0, 0.5,
+                -1.0, -1.0, -1.0, 0.0, 0.0, 0.5,
+                -1.0, 1.0, -1.0,  0.0, 0.0, 0.5,
+
+                // Bottom
+                -1.0, -1.0, -1.0,   0.5, 0.5, 0.0,
+                -1.0, -1.0, 1.0,    0.5, 0.5, 0.0,
+                1.0, -1.0, 1.0,     0.5, 0.5, 0.0,
+                1.0, -1.0, -1.0,    0.5, 0.5, 0.0
+            ];
+
+            var qubeSidesIndexes =
+            [
+                // Top
+                0, 1, 2,
+                0, 2, 3,
+
+                // Left
+                5, 4, 6,
+                6, 4, 7,
+
+                // Right
+                8, 9, 10,
+                8, 10, 11,
+
+                // Front
+                13, 12, 14,
+                15, 14, 12,
+
+                // Back
+                16, 17, 18,
+                16, 18, 19,
+
+                // Bottom
+                21, 20, 22,
+                22, 20, 23
+            ];
+
+            // vertex buffor declaration
+            const qubeVertexBufferObject = gl.createBuffer();
             // bind buffer to the array buffer
-            gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject);
-            // write to the array buffer triangleVerticesArray as Float32, and declare that we are going to use it to static draw
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW);
+            gl.bindBuffer(gl.ARRAY_BUFFER, qubeVertexBufferObject);
+            // write to the array buffer qubeVerticesArray as Float32, and declare that we are going to use it to static draw
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(qubeVertices), gl.STATIC_DRAW);
+
+            // index buffor declaration
+            const qubeIndexBufferObject = gl.createBuffer();
+	        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, qubeIndexBufferObject);
+	        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(qubeSidesIndexes), gl.STATIC_DRAW);
+
             // find attribute location in memory
             const positionAttribLocation = gl.getAttribLocation(program, 'vertPosition');
             const colorAttribLocation = gl.getAttribLocation(program, 'vertColor');
@@ -147,7 +210,7 @@
             // render loop
             const render = () => {
                 gl.clear(gl.COLOR_BUFFER_BIT);
-                gl.drawArrays(gl.TRIANGLES, 0, 6);
+                gl.drawElements(gl.TRIANGLES, qubeSidesIndexes.length, gl.UNSIGNED_SHORT, 0);
             }
 
             // let's rotate our model
