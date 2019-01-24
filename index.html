@@ -109,6 +109,34 @@
             gl.enableVertexAttribArray(positionAttribLocation);
             gl.enableVertexAttribArray(colorAttribLocation);
 
+            // create matrixes as float32
+            let modelMatrix = new Float32Array(16);
+            let viewMatrix = new Float32Array(16);
+            let projectionMatrix = new Float32Array(16);
+
+            // fill matrixes for now as identity
+            modelMatrix =
+                [
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1
+                ];
+            viewMatrix =
+                [
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1
+                ];
+            projectionMatrix =
+                [
+                    1, 0, 0, 0,
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1
+                ];
+
             gl.drawArrays(gl.TRIANGLES, 0, 3); // (what, data/vertices offset, how many vertices will be used)
         });
     </script>
