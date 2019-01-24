@@ -12,6 +12,7 @@
 <body>
     <canvas id="canvas" width="800" height="600"></canvas>
 
+    <script src="js/gl-matrix.js"></script>
     <script id="vertexShader" type="x-shader/x-vertex">
         precision mediump float;
         attribute vec3 vertPosition;
@@ -114,7 +115,7 @@
             let viewMatrix = new Float32Array(16);
             let projectionMatrix = new Float32Array(16);
 
-            // fill matrixes for now as identity
+            // fill matrixes with more proper data
             modelMatrix =
                 [
                     1, 0, 0, 0,
@@ -127,15 +128,16 @@
                     1, 0, 0, 0,
                     0, 1, 0, 0,
                     0, 0, 1, 0,
-                    0, 0, 0, 1
+                    0, 0, -2, 1
                 ];
-            projectionMatrix =
-                [
-                    1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, 0, 1
-                ];
+            // diffine camera propertises
+            const nearBound=0.1; // near bound distance
+            const farBound=1000.0;// far bound distance
+            const cameraAngle = Math.PI/4; // angle pi/4 = 45 deg
+            const displayRatio = c.width / c.height; // canvas/screen ratio
+
+            // lets use external library for projection matrix - http://glmatrix.net/docs/index.html
+            glMatrix.mat4.perspective(projectionMatrix, cameraAngle, displayRatio, nearBound, farBound);
 
             // find uniforms location in memory
             const modelMatrixLocation = gl.getUniformLocation(program,'model');
