@@ -186,7 +186,7 @@
             glMatrix.mat4.identity(modelMatrix);
 
             // seting camera with glMatrix (otput matrix, where is camera, at what it is looking, which way is up)
-            glMatrix.mat4.lookAt(viewMatrix, [0, 0, 2], [0, 0, 0], [0, 1, 0]);
+            glMatrix.mat4.lookAt(viewMatrix, [0, 0, 8], [0, 0, 0], [0, 1, 0]);
 
             // diffine camera propertises
             const nearBound=0.1; // near bound distance
