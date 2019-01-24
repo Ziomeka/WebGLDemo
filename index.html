@@ -56,6 +56,9 @@
             // create shader objects
             const vertexShader = gl.createShader(gl.VERTEX_SHADER);
             const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+            // assign GLSL scripts text to proper shaders
+            gl.shaderSource(vertexShader, vertexShaderText);
+            gl.shaderSource(fragmentShader, fragmentShaderText);
             });
     </script>
 </body>
