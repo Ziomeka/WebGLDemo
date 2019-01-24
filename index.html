@@ -14,14 +14,14 @@
 
     <script id="vertexShader" type="x-shader/x-vertex">
         precision mediump float;
-        attribute vec2 vertPosition;
+        attribute vec3 vertPosition;
         attribute vec3 vertColor;
         varying vec3 fragColor;
 
         void main()
         {
         fragColor = vertColor;
-        gl_Position = vec4(vertPosition, 0.0, 1.0);
+        gl_Position = vec4(vertPosition, 1.0);
         }
     </script>
     <script id="fragmentShader" type="x-shader/x-fragment">
@@ -71,10 +71,10 @@
 
             // define triangle vertexes position and colors
             let triangleVertices =
-                [ // X, Y,       R, G, B
-                    0.0, 0.5,    1.0, 0.0, 0.0,
-                    -0.5, -0.5,  0.0, 0.0, 1.0,
-                    0.5, -0.5,   0.0, 1.0, 0.0
+                [ // X, Y, Z          R, G, B
+                    0.0, 0.5, 0.0,    1.0, 0.0, 0.0,
+                    -0.5, -0.5, 0.0,  0.0, 0.0, 1.0,
+                    0.5, -0.5, 0.0,   0.0, 1.0, 0.0
                 ];
             // buffor declaration
             const triangleVertexBufferObject = gl.createBuffer();
@@ -88,10 +88,10 @@
             // write to attributes location data from buffer
             gl.vertexAttribPointer(
                 positionAttribLocation, // attribute location
-                2, // number of elements in attribute, 2 - X and Y
+                3, // number of elements in attribute, 2 - X and Y
                 gl.FLOAT, // type of data
                 gl.FALSE, // declare if we want our data to be normalized
-                5 * Float32Array.BYTES_PER_ELEMENT, // size of whole data for one vertx
+                6 * Float32Array.BYTES_PER_ELEMENT, // size of whole data for one vertx
                 0 // offset - where to find beginng of the data for this attribute
             );
             gl.vertexAttribPointer(
@@ -99,8 +99,8 @@
                 3, // number of elements in attribute, 3 - R, G and B
                 gl.FLOAT,
                 gl.FALSE,
-                5 * Float32Array.BYTES_PER_ELEMENT,
-                2 * Float32Array.BYTES_PER_ELEMENT
+                6 * Float32Array.BYTES_PER_ELEMENT,
+                3 * Float32Array.BYTES_PER_ELEMENT
             );
             // enable attributes
             gl.enableVertexAttribArray(positionAttribLocation);
