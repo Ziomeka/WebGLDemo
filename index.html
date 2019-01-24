@@ -53,6 +53,9 @@
             // getting shaders texts
             const vertexShaderText = document.getElementById("vertexShader").text;
             const fragmentShaderText = document.getElementById("fragmentShader").text;
+            // create shader objects
+            const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+            const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
             });
     </script>
 </body>
