@@ -102,6 +102,11 @@
                 5 * Float32Array.BYTES_PER_ELEMENT,
                 2 * Float32Array.BYTES_PER_ELEMENT
             );
+            // enable attributes
+            gl.enableVertexAttribArray(positionAttribLocation);
+            gl.enableVertexAttribArray(colorAttribLocation);
+
+            gl.drawArrays(gl.TRIANGLES, 0, 3); // (what, data/vertices offset, how many vertices will be used)
         });
     </script>
 </body>
