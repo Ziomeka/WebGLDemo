@@ -137,6 +137,16 @@
                     0, 0, 0, 1
                 ];
 
+            // find uniforms location in memory
+            const modelMatrixLocation = gl.getUniformLocation(program,'model');
+            const viewMatrixLocation = gl.getUniformLocation(program,'view');
+            const projectionMatrixLocation = gl.getUniformLocation(program,'projection');
+
+            // write data into uniforms (location, of data is transposed, source)
+            gl.uniformMatrix4fv(modelMatrixLocation, gl.FALSE, modelMatrix);
+            gl.uniformMatrix4fv(viewMatrixLocation, gl.FALSE, viewMatrix);
+            gl.uniformMatrix4fv(projectionMatrixLocation, gl.FALSE, projectionMatrix);
+
             gl.drawArrays(gl.TRIANGLES, 0, 3); // (what, data/vertices offset, how many vertices will be used)
         });
     </script>
