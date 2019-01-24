@@ -11,6 +11,19 @@
 
 <body>
     <canvas id="canvas" width="800" height="600"></canvas>
-</body>
 
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            // get canvas element
+            const c = document.getElementById("canvas");
+            // webGL initialization - geting canvas context for 3D graphic
+            const gl = c.getContext('webgl');
+            // fast check of browser compatibility
+            if (!gl) {
+                alert("Yor browser doesn't suport WebGL");
+                return;
+            }
+        });
+    </script>
+</body>
 </html>
