@@ -52,7 +52,11 @@
             // define deafult background/clear color (R,G,B in 0-1 and opacity)
             gl.clearColor(1.0, 0.0, 1.0, 1.0);
             // clear screen
-            gl.clear(gl.COLOR_BUFFER_BIT); // gl.UPPER_CASEE - webgl constants notation
+            gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // gl.UPPER_CASEE - webgl constants notation
+            gl.enable(gl.DEPTH_TEST);
+            gl.enable(gl.CULL_FACE);
+	        gl.frontFace(gl.CCW); //sets which side is front (clock-wise or counterclock-wise)
+	        gl.cullFace(gl.BACK); //hide back of element
 
             // getting shaders texts
             const vertexShaderText = document.getElementById("vertexShader").text;
@@ -74,7 +78,7 @@
             gl.useProgram(program);
 
             // define triangle vertexes position and colors with idexes
-            var qubeVertices = 
+            var qubeVertices =
             [ // X, Y, Z           R, G, B
                 // Top
                 -1.0, 1.0, -1.0,   0.5, 0.0, 0.0,
@@ -209,7 +213,7 @@
 
             // render loop
             const render = () => {
-                gl.clear(gl.COLOR_BUFFER_BIT);
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
                 gl.drawElements(gl.TRIANGLES, qubeSidesIndexes.length, gl.UNSIGNED_SHORT, 0);
             }
 
@@ -219,7 +223,7 @@
             let yRotationMatrix = new Float32Array(16);
 
             glMatrix.mat4.identity(identity);
-            let alfa =0;
+            let aangle =0;
 
             const update = (time) => {
                 angle = time / 1000 / 6 * 2 * Math.PI;
