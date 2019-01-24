@@ -116,7 +116,18 @@
             let projectionMatrix = new Float32Array(16);
 
             // fill matrixes with more proper data
-            glMatrix.mat4.identity(modelMatrix);
+
+            // let's rotate our model
+            let identity = new Float32Array(16);
+            let xRotationMatrix = new Float32Array(16);
+            let yRotationMatrix = new Float32Array(16);
+
+            glMatrix.mat4.identity(identity);
+
+            glMatrix.mat4.rotate(xRotationMatrix, identity, Math.PI/6, [1, 0, 0]); // x rotation matrix
+            glMatrix.mat4.rotate(yRotationMatrix, identity, Math.PI/6, [0, 1, 0]); // y rotation matrix
+
+            glMatrix.mat4.mul(modelMatrix, yRotationMatrix, xRotationMatrix); // model matrix as multiplication of the rotation matrixes
 
             // seting camera with glMatrix (otput matrix, where is camera, at what it is looking, which way is up)
             glMatrix.mat4.lookAt(viewMatrix, [0, 0, 2], [0, 0, 0], [0, 1, 0]);
